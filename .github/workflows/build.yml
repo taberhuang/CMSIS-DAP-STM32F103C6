@@ -1,0 +1,114 @@
+# Firmware CI: Ubuntu + official ARM GNU Toolchain (wget/tar) + CMake + Ninja.
+# GitHub Actions usage is free for public repositories.
+
+name: Firmware CI
+
+on:
+  push:
+    branches: [main, master]
+    tags:
+      - 'v*'   # e.g. v1.0.0 — also runs CI and (see release job) publishes GitHub Release assets
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+# Default: read-only repo token. The release job raises this to contents: write.
+permissions:
+  contents: read
+
+concurrency:
+  group: firmware-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      # ARM GNU Toolchain releases: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
+      # When upgrading, change all three lines below in lockstep (DIR = TARBALL without the .tar.xz suffix).
+      ARM_GNU_DIR: arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi
+      ARM_GNU_TARBALL: arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi.tar.xz
+      ARM_GNU_URL: https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi.tar.xz
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install CMake and Ninja
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends cmake ninja-build wget xz-utils
+
+      # Cache the extracted toolchain. Stored inside the workspace under .cache/
+      # so it co-exists naturally with actions/cache.
+      - name: Cache ARM GNU Toolchain
+        id: cache-arm-gnu
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.cache/${{ env.ARM_GNU_DIR }}
+          key: arm-gnu-${{ env.ARM_GNU_DIR }}-${{ runner.os }}-${{ runner.arch }}
+
+      - name: Download and extract ARM GNU Toolchain (official)
+        if: steps.cache-arm-gnu.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p "${{ github.workspace }}/.cache"
+          cd "${{ github.workspace }}/.cache"
+          wget -nv --retry-connrefused --tries=3 -O "${{ env.ARM_GNU_TARBALL }}" "${{ env.ARM_GNU_URL }}"
+          tar -xf "${{ env.ARM_GNU_TARBALL }}"
+          test -d "${{ env.ARM_GNU_DIR }}/bin"
+
+      - name: Add ARM GNU Toolchain to PATH
+        run: |
+          set -euo pipefail
+          ROOT="${{ github.workspace }}/.cache/${{ env.ARM_GNU_DIR }}"
+          test -d "$ROOT/bin"
+          echo "$ROOT/bin" >> "$GITHUB_PATH"
+          # GITHUB_PATH only affects later steps; export PATH locally so we can
+          # print the toolchain version in this same step.
+          export PATH="$ROOT/bin:$PATH"
+          arm-none-eabi-gcc --version
+
+      - name: Configure and build
+        run: |
+          set -euo pipefail
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=MinSizeRel
+          ninja -C build
+
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: CMSIS-DAP-STM32F103C6-firmware
+          path: |
+            build/CMSIS-DAP-STM32F103C6.elf
+            build/CMSIS-DAP-STM32F103C6.hex
+            build/CMSIS-DAP-STM32F103C6.bin
+            build/CMSIS-DAP-STM32F103C6.map
+          if-no-files-found: error
+
+  # GitHub Releases (right-hand "Releases" on the repo home page) — not the
+  # short-lived Actions artifact ZIP. Requires pushing a version tag: v1.0.0
+  release:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: CMSIS-DAP-STM32F103C6-firmware
+          path: firmware
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            firmware/**/*

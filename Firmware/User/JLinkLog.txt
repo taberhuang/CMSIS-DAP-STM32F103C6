@@ -1,0 +1,133 @@
+T8458 000:265.831   SEGGER J-Link V7.98e Log File
+T8458 000:266.335   DLL Compiled: Aug 21 2024 15:09:48
+T8458 000:266.340   Logging started @ 2026-04-10 07:36
+T8458 000:266.344   Process: C:\Keil_v5\UV4\UV4.exe
+T8458 000:266.350 - 266.348ms
+T8458 000:266.467 JLINK_SetWarnOutHandler(...)
+T8458 000:266.493 - 0.134ms
+T8458 000:266.514 JLINK_OpenEx(...)
+T8458 000:270.409   Firmware: J-Link V12 compiled Apr  1 2025 10:02:39
+T8458 000:271.603   Firmware: J-Link V12 compiled Apr  1 2025 10:02:39
+T8458 000:291.827   Hardware: V12.00
+T8458 000:291.849   S/N: 601012352
+T8458 000:291.855   OEM: SEGGER
+T8458 000:291.861   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T8458 000:294.304   Bootloader: (Could not read)
+T8458 000:295.047   USB speed mode: High speed (480 MBit/s)
+T8458 000:295.064   Active J-Link Eco level: 3 (https://wiki.segger.com/J-Link_Eco)
+T8458 000:295.593   TELNET listener socket opened on port 19021
+T8458 000:295.730   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T8458 000:296.035   WEBSRV Webserver running on local port 19080
+T8458 000:296.145   Looking for J-Link GUI Server exe at: C:\Keil_v5\ARM\Segger\JLinkGUIServer.exe
+T8458 000:296.321   Looking for J-Link GUI Server exe at: \JLinkGUIServer.exe
+T8458 000:597.135   Failed to connect to J-Link GUI Server.
+T8458 000:598.111 - 330.655ms returns "O.K."
+T8458 000:598.144 JLINK_GetEmuCaps()
+T8458 000:598.157 - 0.008ms returns 0xB9FF7BBF
+T8458 000:598.168 JLINK_TIF_GetAvailable(...)
+T8458 000:598.639 - 0.470ms
+T8458 000:598.678 JLINK_SetErrorOutHandler(...)
+T8458 000:598.684 - 0.006ms
+T8458 000:599.006 JLINK_ExecCommand("ProjectFile = "M:\fork\dap-debugger\CMSIS-DAP_C6T6\Firmware\User\JLinkSettings.ini"", ...). 
+T8458 000:622.046 - 23.041ms returns 0x00
+T8458 000:622.080 JLINK_ExecCommand("Device = STM32F103C6", ...). 
+T8458 000:622.885   Device "STM32F103C6" selected.
+T8458 000:623.216 - 1.129ms returns 0x00
+T8458 000:623.230 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T8458 000:623.238   ERROR: Unknown command
+T8458 000:623.244 - 0.007ms returns 0x01
+T8458 000:623.249 JLINK_GetHardwareVersion()
+T8458 000:623.256 - 0.004ms returns 120000
+T8458 000:623.261 JLINK_GetDLLVersion()
+T8458 000:623.265 - 0.003ms returns 79805
+T8458 000:623.270 JLINK_GetOEMString(...)
+T8458 000:623.275 JLINK_GetFirmwareString(...)
+T8458 000:623.279 - 0.003ms
+T8458 000:623.287 JLINK_GetDLLVersion()
+T8458 000:623.291 - 0.003ms returns 79805
+T8458 000:623.295 JLINK_GetCompileDateTime()
+T8458 000:623.299 - 0.003ms
+T8458 000:623.305 JLINK_GetFirmwareString(...)
+T8458 000:623.309 - 0.003ms
+T8458 000:623.314 JLINK_GetHardwareVersion()
+T8458 000:623.317 - 0.003ms returns 120000
+T8458 000:623.322 JLINK_GetSN()
+T8458 000:623.326 - 0.003ms returns 601012352
+T8458 000:623.331 JLINK_GetOEMString(...)
+T8458 000:623.338 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T8458 000:625.785 - 2.446ms returns 0x00
+T8458 000:625.808 JLINK_HasError()
+T8458 000:625.820 JLINK_SetSpeed(5000)
+T8458 000:626.167 - 0.347ms
+T8458 000:626.502 JLINK_HasError()
+T8458 000:626.516 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)
+T8458 000:626.522 - 0.005ms returns JLINKARM_RESET_TYPE_NORMAL
+T8458 000:626.527 JLINK_Reset()
+T8458 000:627.141   InitTarget() start
+T8458 000:627.156    J-Link Script File: Executing InitTarget()
+T8458 000:627.874   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 000:731.005   Error: Failed to initialized DAP.
+T8458 000:731.031   Can not attach to CPU. Trying connect under reset.
+T8458 000:803.455   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 000:906.204   Error: Failed to initialized DAP.
+T8458 000:906.228   Connecting to CPU via connect under reset failed.
+T8458 001:052.851   InitTarget() end - Took 425ms
+T8458 001:052.882   Connect failed. Resetting via Reset pin and trying again.
+T8458 001:115.086   InitTarget() start
+T8458 001:115.122    J-Link Script File: Executing InitTarget()
+T8458 001:115.797   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 001:218.207   Error: Failed to initialized DAP.
+T8458 001:218.294   Can not attach to CPU. Trying connect under reset.
+T8458 001:302.951   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 001:405.320   Error: Failed to initialized DAP.
+T8458 001:405.346   Connecting to CPU via connect under reset failed.
+T8458 001:552.665   InitTarget() end - Took 437ms
+T8458 001:552.697 - 926.170ms
+T8458 001:552.716 JLINK_GetId()
+T8458 001:553.049   InitTarget() start
+T8458 001:553.057    J-Link Script File: Executing InitTarget()
+T8458 001:553.759   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 001:656.614   Error: Failed to initialized DAP.
+T8458 001:656.656   Can not attach to CPU. Trying connect under reset.
+T8458 001:803.894   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 001:906.104   Error: Failed to initialized DAP.
+T8458 001:906.128   Connecting to CPU via connect under reset failed.
+T8458 002:052.504   InitTarget() end - Took 499ms
+T8458 002:052.533   Connect failed. Resetting via Reset pin and trying again.
+T8458 002:114.298   InitTarget() start
+T8458 002:114.336    J-Link Script File: Executing InitTarget()
+T8458 002:114.998   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 002:217.306   Error: Failed to initialized DAP.
+T8458 002:217.344   Can not attach to CPU. Trying connect under reset.
+T8458 002:303.174   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 002:405.115   Error: Failed to initialized DAP.
+T8458 002:405.158   Connecting to CPU via connect under reset failed.
+T8458 002:553.039   InitTarget() end - Took 438ms
+T8458 002:553.069 - 1000.353ms returns 0x00000000
+T8458 002:553.086 JLINK_GetId()
+T8458 002:553.430   InitTarget() start
+T8458 002:553.450    J-Link Script File: Executing InitTarget()
+T8458 002:554.160   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 002:656.204   Error: Failed to initialized DAP.
+T8458 002:656.247   Can not attach to CPU. Trying connect under reset.
+T8458 002:804.105   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 002:907.336   Error: Failed to initialized DAP.
+T8458 002:907.374   Connecting to CPU via connect under reset failed.
+T8458 003:052.784   InitTarget() end - Took 499ms
+T8458 003:052.815   Connect failed. Resetting via Reset pin and trying again.
+T8458 003:114.041   InitTarget() start
+T8458 003:114.090    J-Link Script File: Executing InitTarget()
+T8458 003:114.729   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 003:217.665   Error: Failed to initialized DAP.
+T8458 003:217.718   Can not attach to CPU. Trying connect under reset.
+T8458 003:302.978   SWD selected. Executing JTAG -> SWD switching sequence.
+T8458 003:405.233   Error: Failed to initialized DAP.
+T8458 003:405.268   Connecting to CPU via connect under reset failed.
+T8458 003:552.557   InitTarget() end - Took 438ms
+T8458 003:552.592 - 999.505ms returns 0x00000000
+T8458 003:562.994 JLINK_GetFirmwareString(...)
+T8458 003:563.021 - 0.026ms
+T8458 1063:233.024 JLINK_Close()
+T8458 1063:247.040 - 14.062ms
+T8458 1063:247.040   
+T8458 1063:247.040   Closed

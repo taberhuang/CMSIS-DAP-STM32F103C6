@@ -1,0 +1,22 @@
+Firmware/User/Objects/
+Firmware/User/CMSIS-DAP.uvoptx
+Firmware/User/CMSIS-DAP.uvguix.hello
+
+# GCC / CMake / Ninja build artifacts
+/build/
+/build-*/
+/out/
+/cmake-build-*/
+/_deps/
+/.cache/
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+*.su
+compile_commands.json
+
+# Local scratch files used during debugging
+/_*.txt
